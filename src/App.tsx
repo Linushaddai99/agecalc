@@ -4,7 +4,7 @@ function App() {
 
   return (
     <>
-      <h1>Age Calculator</h1>
+      <h1>Welcome to Age Calculator</h1>
     </>
   )
 }
