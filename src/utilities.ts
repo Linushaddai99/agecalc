@@ -1,4 +1,5 @@
-import dateFormat from 'dateformat'
+// import dateFormat from 'dateformat'
+// const dateFormat = require('dateformat');
 
 type Date = {
     year: number
@@ -29,7 +30,7 @@ const isLeapYear = (year: number) => {
     return year % 4 == 0;
 }
 
-function daysToYearsMonthsDays(totalDays: number) {
+export function daysToYearsMonthsDays(totalDays: number) {
     // Assuming 1 year = 365 days and 1 month = 30 days
     const daysInYear = 365;
     const daysInMonth = 30;
@@ -43,19 +44,19 @@ function daysToYearsMonthsDays(totalDays: number) {
     return { years, months, days };
 }
 
-const getAge =(date: Date)=> {
+export const getAge =(date: Date)=> {
     const todaysDate = new Date()
-    const newdate = date.year + ' ' + date.month + ' ' + date.day;
+    const birthDate = new Date(date.year, date.month, date.day);
 
-    const birthDate = dateFormat(newdate, 'fullDate');
-    const differenceInMilliseconds = todaysDate - birthDate;
+    // const birthDate = dateFormat(newdate, 'fullDate');
+    const differenceInMilliseconds = todaysDate.getTime() - birthDate.getTime();
 
     // Convert milliseconds to days
     const differenceInDays = Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24));
-    daysToYearsMonthsDays(differenceInDays)
+    return daysToYearsMonthsDays(differenceInDays)
 }
 
-const checkDate = (date: Date) => {
+export const checkDate = (date: Date): string | {} =>  {
     const month = monthOrder.find((_, i) => date.month === i + 1);
 
     if(thirtyDaysMonths.includes(date.month) && date.day > 30) {
@@ -63,13 +64,13 @@ const checkDate = (date: Date) => {
     } else if(date.month === 2 && date.day > 29) {
         return `Invalid day value for ${month}`
     } else if(date.month === 2 && !isLeapYear(date.year) && date.day > 28) {
-        return `Invalid day value for ${month}`
+        return `The given year is not a leap year, hence ${date.day}th is not valid for ${month}`
     } else {
-        getAge(date);
+        return 'valid';
     }
 }
 
-const validateValue = (identifier: Identifier) => {
+export const validateValue = (identifier: Identifier) => {
     if(typeof identifier.value === 'string') {
         return `must be a valid ${identifier.type}`
     } else if(identifier.type === 'day' && (identifier.value < 1 || identifier.value > 31)) {
@@ -79,6 +80,6 @@ const validateValue = (identifier: Identifier) => {
     } else if(identifier.type === 'year' && (String(identifier.value).length !== 4  || identifier.value > new Date().getFullYear())) {
         return `must be a valid ${identifier.type}`
     } else {
-        return 'valid'
+        return ''
     }
 }
