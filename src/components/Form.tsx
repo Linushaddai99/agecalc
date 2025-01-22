@@ -122,10 +122,10 @@ const Form: React.FC<FormProps> = ({ setDate, setAnimatedDate })  => {
         }
         </div>
         <div className='text-right relative'>
-            <hr className='w-4/5' />
+            <hr className='' />
             <button 
             type='submit' 
-            className={`bg-[#854dff] text-white p-2 rounded-full absolute right-24 -top-6 hover:bg-black ${enableSubmit ? 'cursor-pointer' : 'cursor-not-allowed'}`}
+            className={`bg-[#854dff] text-white p-2 rounded-full absolute right-0 -top-6 hover:bg-black ${enableSubmit ? 'cursor-pointer' : 'cursor-not-allowed'}`}
             disabled={!enableSubmit}
             >
                 <img src={arrow} className='h-7' alt='arrow btn' />
