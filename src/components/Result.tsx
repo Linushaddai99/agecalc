@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react'
-import { getAge } from '../utilities'
 
 // Define the type for the props
 type ResultProps = {
