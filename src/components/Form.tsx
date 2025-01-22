@@ -4,13 +4,18 @@ import { validateValue, checkDate } from '../utilities'
 
 type FormProps = {
     setDate:  React.Dispatch<React.SetStateAction<{
-    year: number;
-    month: number;
-    day: number;
+    years: number;
+    months: number;
+    days: number;
+    }>>
+    setAnimatedDate: React.Dispatch<React.SetStateAction<{
+        animatedyears: number;
+        animatedmonths: number;
+        animateddays: number;
     }>>
 }
 
-const Form: React.FC<FormProps> = ({ setDate })  => {
+const Form: React.FC<FormProps> = ({ setDate, setAnimatedDate })  => {
 
     const [day, setDay] = React.useState(0);
     const [dayError, setDayError] = React.useState('');
@@ -50,8 +55,6 @@ const Form: React.FC<FormProps> = ({ setDate })  => {
         }
     ]
 
-    const textColor = '#716f6f';
-    const errorColor = '#ff5757'
     const enableSubmit = dayError.length === 0 && monthError.length === 0 && yearError.length === 0 && day > 0 && month > 0 && year > 0;
 
     const checkForErrors = (type: string, value: number ) => {
@@ -65,7 +68,8 @@ const Form: React.FC<FormProps> = ({ setDate })  => {
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>, type: string): void => {
-        setDate({ day: 0, month: 0, year: 0 });
+        setDate({ days: 0, months: 0, years: 0 });
+        setAnimatedDate({ animateddays: 0, animatedmonths: 0, animatedyears: 0 });
         const value = parseInt(e.target.value);
         if(type === 'day') {
             setDay(value);
@@ -82,28 +86,36 @@ const Form: React.FC<FormProps> = ({ setDate })  => {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const result = checkDate({ day, month, year });
-
         if (typeof result === 'string') {
             setInfo(result);
-            setDate({ day, month, year })
+        } else if(typeof result === 'object') {
+            setInfo('');
+            setDate(result);
+        }
+    }
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {
+        // e.preventDefault();
+        if (e.key === 'Enter') {
+            handleSubmit(e as unknown as React.FormEvent<HTMLFormElement>);
         }
     }
     
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <div className='flex justify-left items-left gap-8 mb-5'>
+      <form onSubmit={handleSubmit} onKeyDown={handleKeyDown}>
+        <div className='flex justify-left items-left md:gap-8 gap-4 mb-5'>
         {
             formContent.map((item, index) => (
                 <div key={index}>
-                    <label htmlFor="" className={`text-xs font-semibold text-[${item.error.length ? errorColor : textColor}]`} >{item.label}</label><br />
+                    <label htmlFor="" className={`text-xs font-semibold ${item.error.length ? 'text-[#ff5757]' : 'text-[#716f6f]' }`} >{item.label}</label><br />
                     <input 
                     type={item.type} 
                     value={item.name === 'day' ? day : item.name === 'month' ? month : item.name === 'year' ? year : ''} 
                     onChange={(e) => handleChange(e, item.name)} 
                     placeholder={item.placeholder} 
-                    className={`border ${item.error.length ? 'border-red-500' : 'border-gray-700'} w-32 my-2 p-2 rounded-md placeholder:text-[#716f6f] placeholder:font-bold`} />
+                    className={`border ${item.error.length ? 'border-red-500' : 'border-gray-700'} md:w-32 w-16 my-2 p-2 rounded-md placeholder:text-[#716f6f] placeholder:font-bold`} />
                     <p className='text-[#ff5757] text-xs h-10'>{item.error.length? item.error : ''}</p>
                 </div>
             ))
@@ -113,8 +125,7 @@ const Form: React.FC<FormProps> = ({ setDate })  => {
             <hr />
             <button 
             type='submit' 
-            // className='bg-[#854dff] text-white p-2 rounded-full absolute right-0 -top-6'
-            className={`bg-[#854dff] text-white p-2 rounded-full absolute right-0 -top-6 ${enableSubmit ? 'cursor-pointer' : 'cursor-not-allowed'}`}
+            className={`bg-[#854dff] text-white p-2 rounded-full absolute right-0 -top-6 hover:bg-black ${enableSubmit ? 'cursor-pointer' : 'cursor-not-allowed'}`}
             disabled={!enableSubmit}
             >
                 <img src={arrow} className='h-7' alt='arrow btn' />

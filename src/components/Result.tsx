@@ -1,23 +1,32 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { getAge } from '../utilities'
 
 // Define the type for the props
 type ResultProps = {
     date: {
-      year: number;
-      month: number;
-      day: number;
+      years: number;
+      months: number;
+      days: number;
+    }
+    animatedDate: {
+        animatedyears: number;
+        animatedmonths: number;
+        animateddays: number;
     }
   }
 
-const Result: React.FC<ResultProps> = ({ date }) => {
-    const { years, months, days } = getAge(date);
+const Result: React.FC<ResultProps> = ({ date, animatedDate }) => {    
+
+    const [years, setYears] = useState(0)
+    const [months, setMonths] = useState(0)
+    const [days, setDays] = useState(0)
+
 
     const [animatedYears, setAnimatedYears] = useState(0)
     const [animatedMonths, setAnimatedMonths] = useState(0)
     const [animatedDays, setAnimatedDays] = useState(0)
 
-    if (date.year > 0) {
+    if (years > 0) {
        const yearsInterval = setInterval(() => {
           setAnimatedYears((prev: number) => {
             if (prev < years) {
@@ -30,7 +39,7 @@ const Result: React.FC<ResultProps> = ({ date }) => {
         }, 500)
       }
 
-      if (date.year > 0) {
+      if (months > 0) {
         const monthsInterval = setInterval(() => {
            setAnimatedMonths((prev: number) => {
              if (prev < months) {
@@ -43,7 +52,7 @@ const Result: React.FC<ResultProps> = ({ date }) => {
          }, 500)
        }
 
-       if (date.year > 0) {
+       if (days > 0) {
         const daysInterval = setInterval(() => {
            setAnimatedDays((prev: number) => {
              if (prev < days) {
@@ -56,21 +65,32 @@ const Result: React.FC<ResultProps> = ({ date }) => {
          }, 500)
        }
 
+    useEffect(() => {
+        setYears(date?.years)
+        setMonths(date?.months)
+        setDays(date?.days)
+
+        setAnimatedYears(animatedDate?.animatedyears)
+        setAnimatedMonths(animatedDate?.animatedmonths)
+        setAnimatedDays(animatedDate?.animateddays)
+
+    }, [date])
+
   return (
     <div className='mt-10'>
       <div className='flex items-center'>
-        <p  className='mr-5 text-[70px] font-bold text-[#854dff]'>{date.year > 0 ? animatedYears : '- -'}</p>
-        <h2 className='text-[70px] font-bold'>years</h2>
+        <p  className='mr-5 md:text-[70px] text-[40px] font-bold text-[#854dff]'>{years > 0 ? animatedYears : '- -'}</p>
+        <h2 className='md:text-[70px] text-[40px] font-bold'>years</h2>
       </div>
 
       <div className='flex items-center'>
-        <p  className='mr-5 text-[70px] font-bold text-[#854dff]'>{date.month > 0 ? animatedMonths : '- -'}</p>
-        <h2 className='text-[70px] font-bold'>months</h2>
+        <p  className='mr-5 md:text-[70px] text-[40px] font-bold text-[#854dff]'>{months > 0 ? animatedMonths : '- -'}</p>
+        <h2 className='md:text-[70px] text-[40px] font-bold'>months</h2>
       </div>
 
       <div className='flex items-center'>
-        <p  className='mr-5 text-[70px] font-bold text-[#854dff]'>{date.day > 0 ? animatedDays : '- -'}</p>
-        <h2 className='text-[70px] font-bold'>days</h2>
+        <p  className='mr-5 md:text-[70px] text-[40px] font-bold text-[#854dff]'>{days > 0 ? animatedDays : '- -'}</p>
+        <h2 className='md:text-[70px] text-[40px] font-bold'>days</h2>
       </div>
     </div>
   )

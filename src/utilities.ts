@@ -1,6 +1,3 @@
-// import dateFormat from 'dateformat'
-// const dateFormat = require('dateformat');
-
 type Date = {
     year: number
     month: number
@@ -12,8 +9,6 @@ type Identifier = {
     type: 'day' | 'month' | 'year'
 }
 
-// console.log(new Date().getFullYear())
-
 // sep, apr, jun, nov = 30days
 // feb has 28 days in common years and 29 in leap years
 // Any year that is evenly divisible by 4 is a leap year
@@ -21,9 +16,6 @@ type Identifier = {
 const monthOrder = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 const thirtyDaysMonths = [9, 4, 6, 11];
-
-  // Sort activityKeys based on the index of month names
-//   activityKeys.sort((a, b) => monthOrder.indexOf(a) - monthOrder.indexOf(b));
 
 
 const isLeapYear = (year: number) => {
@@ -40,7 +32,7 @@ export function daysToYearsMonthsDays(totalDays: number) {
 
     const months = Math.floor(remainingDaysAfterYears / daysInMonth);
     const days = remainingDaysAfterYears % daysInMonth;
-
+    console.log(years, months, days)
     return { years, months, days };
 }
 
@@ -53,10 +45,11 @@ export const getAge =(date: Date)=> {
 
     // Convert milliseconds to days
     const differenceInDays = Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24));
-    return daysToYearsMonthsDays(differenceInDays)
+    return daysToYearsMonthsDays(differenceInDays);
+    
 }
 
-export const checkDate = (date: Date): string | {} =>  {
+export const checkDate = (date: Date) =>  {
     const month = monthOrder.find((_, i) => date.month === i + 1);
 
     if(thirtyDaysMonths.includes(date.month) && date.day > 30) {
@@ -66,7 +59,7 @@ export const checkDate = (date: Date): string | {} =>  {
     } else if(date.month === 2 && !isLeapYear(date.year) && date.day > 28) {
         return `The given year is not a leap year, hence ${date.day}th is not valid for ${month}`
     } else {
-        return 'valid';
+       return getAge(date);
     }
 }
 

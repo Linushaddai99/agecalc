@@ -1,18 +1,17 @@
 import React, { useState } from 'react'
 import Form from './Form'
 import Result from './Result'
-// import { getAge } from '../utilities'
 
 const Calc = () => {
-  const [date, setDate] = useState({ year: 0, month: 0, day: 0 });
+  const [date, setDate] = useState({ years: 0, months: 0, days: 0 });
+  const [animatedDate, setAnimatedDate] = useState({ animatedyears: 0, animatedmonths: 0, animateddays: 0 });
 
 
   return (
-    <div className='p-10 bg-white w-[800px] m-auto rounded-br-3xl'>
-        <h1 className='text-center font-semibold mb-5 text-xl text-[#854dff]'>Welcome to Age Calculator</h1>
-        <Form setDate={setDate}/>
-        
-        <Result date={date} />
+    <div className='md:p-10 p-6 bg-white md:w-[800px] w-4/5 m-auto md:rounded-br-[250px] rounded-br-[100px]'>
+        <h1 className='text-center font-semibold mb-5 text-xl text-[#854dff]'>Check your life span</h1>
+        <Form setDate={setDate} setAnimatedDate={setAnimatedDate} />
+        <Result date={date} animatedDate={animatedDate} />
     </div>
   )
 }
