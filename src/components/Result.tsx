@@ -78,18 +78,18 @@ const Result: React.FC<ResultProps> = ({ date, animatedDate }) => {
   return (
     <div className='mt-10'>
       <div className='flex items-center'>
-        <p  className='mr-5 md:text-[70px] text-[40px] font-bold text-[#854dff]'>{years > 0 ? animatedYears : '- -'}</p>
-        <h2 className='md:text-[70px] text-[40px] font-bold'>years</h2>
+        <p  className='mr-5 md:text-[50px] text-[40px] font-bold text-[#854dff]'>{years > 0 ? animatedYears : '- -'}</p>
+        <h2 className='md:text-[50px] text-[40px] font-bold'>years</h2>
       </div>
 
       <div className='flex items-center'>
-        <p  className='mr-5 md:text-[70px] text-[40px] font-bold text-[#854dff]'>{months > 0 ? animatedMonths : '- -'}</p>
-        <h2 className='md:text-[70px] text-[40px] font-bold'>months</h2>
+        <p  className='mr-5 md:text-[50px] text-[40px] font-bold text-[#854dff]'>{months > 0 ? animatedMonths : '- -'}</p>
+        <h2 className='md:text-[50px] text-[40px] font-bold'>months</h2>
       </div>
 
       <div className='flex items-center'>
-        <p  className='mr-5 md:text-[70px] text-[40px] font-bold text-[#854dff]'>{days > 0 ? animatedDays : '- -'}</p>
-        <h2 className='md:text-[70px] text-[40px] font-bold'>days</h2>
+        <p  className='mr-5 md:text-[50px] text-[40px] font-bold text-[#854dff]'>{days > 0 ? animatedDays : '- -'}</p>
+        <h2 className='md:text-[50px] text-[40px] font-bold'>days</h2>
       </div>
     </div>
   )

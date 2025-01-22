@@ -8,7 +8,7 @@ const Calc = () => {
 
 
   return (
-    <div className='md:p-10 p-6 bg-white md:w-[800px] w-4/5 m-auto rounded-3xl md:rounded-br-[250px] rounded-br-[100px]'>
+    <div className='md:p-6 p-3 bg-white md:w-[550px] w-4/5 m-auto rounded-3xl md:rounded-br-[150px] rounded-br-[100px]'>
         <h1 className='text-center font-semibold mb-5 text-xl text-[#854dff]'>Check your life span</h1>
         <Form setDate={setDate} setAnimatedDate={setAnimatedDate} />
         <Result date={date} animatedDate={animatedDate} />

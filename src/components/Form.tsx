@@ -109,23 +109,23 @@ const Form: React.FC<FormProps> = ({ setDate, setAnimatedDate })  => {
         {
             formContent.map((item, index) => (
                 <div key={index}>
-                    <label htmlFor="" className={`text-xs font-semibold ${item.error.length ? 'text-[#ff5757]' : 'text-[#716f6f]' }`} >{item.label}</label><br />
+                    <label htmlFor="" className={`text-xs font-bold ${item.error.length ? 'text-[#ff5757]' : 'text-[#716f6f]' }`} >{item.label}</label><br />
                     <input 
                     type={item.type} 
                     value={item.name === 'day' ? day : item.name === 'month' ? month : item.name === 'year' ? year : ''} 
                     onChange={(e) => handleChange(e, item.name)} 
                     placeholder={item.placeholder} 
-                    className={`border ${item.error.length ? 'border-red-500' : 'border-gray-700'} md:w-32 w-16 my-2 p-2 rounded-md placeholder:text-[#716f6f] placeholder:font-bold`} />
+                    className={`border ${item.error.length ? 'border-red-500' : 'border-gray-700'} md:w-32 w-16 my-2 p-2 font-bold text-xl rounded-md placeholder:text-[#716f6f] placeholder:font-bold`} />
                     <p className='text-[#ff5757] text-xs h-10'>{item.error.length? item.error : ''}</p>
                 </div>
             ))
         }
         </div>
         <div className='text-right relative'>
-            <hr />
+            <hr className='w-4/5' />
             <button 
             type='submit' 
-            className={`bg-[#854dff] text-white p-2 rounded-full absolute right-0 -top-6 hover:bg-black ${enableSubmit ? 'cursor-pointer' : 'cursor-not-allowed'}`}
+            className={`bg-[#854dff] text-white p-2 rounded-full absolute right-24 -top-6 hover:bg-black ${enableSubmit ? 'cursor-pointer' : 'cursor-not-allowed'}`}
             disabled={!enableSubmit}
             >
                 <img src={arrow} className='h-7' alt='arrow btn' />
