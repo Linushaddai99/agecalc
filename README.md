@@ -1,4 +1,4 @@
-# Age Calculator
+# Boisai Clone
 This app helps users calculate the exact duration of their life in years, months, and days
 
 ## Installation 
